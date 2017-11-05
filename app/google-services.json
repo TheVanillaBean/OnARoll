@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "182669974401",
+    "firebase_url": "https://onaroll-78f4f.firebaseio.com",
+    "project_id": "onaroll-78f4f",
+    "storage_bucket": "onaroll-78f4f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:182669974401:android:72a75d7433eaa171",
+        "android_client_info": {
+          "package_name": "com.onarollapp.onaroll"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "182669974401-0g3s8de7n80aaii6os3nguuubmr8rjab.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.onarollapp.onaroll",
+            "certificate_hash": "04041fef72ea12c68d015b7ec23d276b984df2c4"
+          }
+        },
+        {
+          "client_id": "182669974401-k30at9ek42psu5hrblvsqds4d358pvfo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB_0DLKzb-L7xhMKp4e_MRte77fRfyGe68"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "182669974401-k30at9ek42psu5hrblvsqds4d358pvfo.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
