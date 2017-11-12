@@ -20,6 +20,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".Controller.ShopActivity"
+            android:label="@string/title_activity_shop"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Controller.PerkCustomization"
+            android:label="@string/title_activity_perk_customization"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>
