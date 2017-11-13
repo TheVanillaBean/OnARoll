@@ -20,12 +20,14 @@ public class MainActivity extends AppCompatActivity {
         final Button goToShopButton = (Button)findViewById(R.id.go_to_shop);
         goToShopButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                // Crashing when I try to change my activity not sure why
                 changeActivity(ShopActivity.class);
+            }
+        });
 
-                // This line was to test that the on click listener was working correctly
-                /*final TextView test = (TextView)findViewById(R.id.helloWorld);
-                test.setText("IT WORKED!!!");*/
+        Button startGame = (Button)findViewById(R.id.start_game);
+        startGame.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                changeActivity(GameActivity.class);
             }
         });
 
