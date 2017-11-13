@@ -11,6 +11,10 @@ import com.onarollapp.onaroll.R;
 
 public class PerkCustomization extends AppCompatActivity {
 
+    private int selectedPerkSlot;
+    private int selectedPerk;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
