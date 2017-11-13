@@ -27,7 +27,13 @@
         <activity
             android:name=".Controller.PerkCustomization"
             android:label="@string/title_activity_perk_customization"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity
+            android:name=".Controller.GameActivity"
+            android:label="@string/title_activity_game"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
     </application>
 
 </manifest>
