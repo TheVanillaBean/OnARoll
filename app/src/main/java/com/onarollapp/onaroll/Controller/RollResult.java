@@ -5,10 +5,20 @@ package com.onarollapp.onaroll.Controller;
  */
 
 public class RollResult {
-    private int dieOne;
-    private int dieTwo;
+    public int dieOne;
+    public int dieTwo;
+    public int dieThree;
 
-    RollResult(int dieOne, int dieTwo) {
-
+    public RollResult(int dieOne, int dieTwo) {
+        this.dieOne = dieOne;
+        this.dieTwo = dieTwo;
+        this.dieThree = 0;
     }
+
+    public RollResult(int dieOne, int dieTwo, int dieThree) {
+        this.dieOne = dieOne;
+        this.dieTwo = dieTwo;
+        this.dieThree = dieThree;
+    }
+
 }
