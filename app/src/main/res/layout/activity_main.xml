@@ -6,22 +6,11 @@
     android:layout_height="match_parent"
     tools:context="com.onarollapp.onaroll.Controller.MainActivity">
 
-    <TextView
-        android:id="@+id/helloWorld"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <GridLayout
         android:layout_width="368dp"
         android:layout_height="103dp"
-        android:layout_marginBottom="135dp"
-        app:layout_constraintBottom_toTopOf="@+id/helloWorld"
-        tools:layout_editor_absoluteX="0dp">
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="9dp">
 
         <Button
             android:id="@+id/go_to_perk_customiztion"
