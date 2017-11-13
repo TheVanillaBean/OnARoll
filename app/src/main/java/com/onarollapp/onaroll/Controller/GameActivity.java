@@ -92,7 +92,7 @@ public class GameActivity extends AppCompatActivity {
         if (testGame) {
             newScore = Integer.parseInt((String) currentScore.getText()) + 1;
         }
-        currentScore.setText(Integer.toString(newScore));
+        currentScore.setText(Integer.toString(newScore)); 
         currentScore.setTextSize((float) (Math.log((double) newScore * 3) + 14));
         currentScore_label.setTextSize((float) (Math.log((double) newScore * 3) + 14));
     }
