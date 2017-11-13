@@ -1,9 +1,16 @@
 <resources>
     <string name="app_name">OnARoll</string>
     <string name="title_activity_scrolling">ScrollingActivity</string>
-    <string name="start_game">Start Game</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_shop">ShopActivity</string>
     <string name="title_activity_perk_customization">PerkCustomization</string>
+
+    <!-- All strings needed by gameactivity-->
+    <string name="start_game">Start Game</string>
     <string name="title_activity_game">ON A ROLL!!!!!</string>
+    <string name="current_score">CURRENT SCORE:</string>
+    <string name="cumulative_score">CUMULATIVE SCORE:</string>
+    <string name="roll_die">ROLL DIE</string>
+    <string name="hold">HOLD</string>
+
 </resources>
