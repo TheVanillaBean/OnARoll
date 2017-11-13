@@ -60,6 +60,8 @@ public class GameActivity extends AppCompatActivity {
             public void onClick(View v) {
                 testGame = true;
                 newScore = 0;
+                currentScore.setText(Integer.toString(newScore));
+                cumulativeScore.setText(Integer.toString(newScore));
                 Log.d("DEBUG", "Game set to test mode");
             }
         });
