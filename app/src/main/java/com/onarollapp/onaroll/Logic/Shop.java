@@ -13,15 +13,16 @@ import com.onarollapp.onaroll.Users.Player;
 
 public class Shop {
     public  static boolean buyItem(String shopId, String playerId) {
-        ShopItem item = DataService.getShopItem(shopId);
-        Player player = DataService.getPlayer(playerId);
-        Perk perk = DataService.getPerk(item.itemId);
+        DataService ds = DataService.getInstance();
+        ShopItem item = ds.getShopItem(shopId);
+        Player player = ds.getPlayer(playerId);
+        Perk perk = ds.getPerk(item.itemId);
 
 
         if(player.credits > item.price) {
             player.credits = player.credits - item.price;
             player.perkList.add(perk);
-            DataService.updatePlayer(player);
+            ds.updatePlayer(player);
             return true;
         } else {
             // Player could not afford the item
