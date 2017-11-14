@@ -10,24 +10,33 @@ import com.onarollapp.onaroll.Users.Player;
  */
 
 public class DataService {
+    private static final DataService instance = new DataService();
+
+    DataService() {
+    }
+
+    public static DataService getInstance() {
+        return instance;
+    }
+
 
     // Get Player object from DB by ID
-    public static Player getPlayer(String playerId) {
+    public Player getPlayer(String playerId) {
         return null;
     }
 
     // Update Player object in DB
-    public static void updatePlayer(Player player) {
+    public void updatePlayer(Player player) {
 
     }
 
     // Get ShopItem object from DB by ID
-    public static ShopItem getShopItem(String shopId) {
+    public ShopItem getShopItem(String shopId) {
         return null;
     }
 
     // Get Perk object from DB by ID
-    public static Perk getPerk(String perkId) {
+    public Perk getPerk(String perkId) {
         return null;
     }
 }
