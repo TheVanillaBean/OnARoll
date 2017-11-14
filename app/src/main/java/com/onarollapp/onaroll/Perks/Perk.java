@@ -9,7 +9,7 @@ import com.onarollapp.onaroll.Logic.RollResult;
 
 public abstract class Perk {
 
-    public int id;
+    public String id;
 
     public double oneModifier = 0;
     public double twoModifer = 0;
@@ -25,5 +25,7 @@ public abstract class Perk {
 
     // If a perk needs to store data based on the
     public Object[] data;
+
+
 
 }
