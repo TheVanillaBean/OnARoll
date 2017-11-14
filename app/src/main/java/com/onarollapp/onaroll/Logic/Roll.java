@@ -11,7 +11,9 @@ import java.util.Random;
 
 public class Roll {
 
-    public static GameState Roll(ArrayList<Perk> perks, GameState gameState) {
+    private GameState finalGameState;
+
+    Roll(ArrayList<Perk> perks, GameState gameState) {
 
         Random rand = new Random();
         double oneModifier = 100;
@@ -52,19 +54,19 @@ public class Roll {
 
             if(randNum < oneModifier / total) {
                 rollResultsList.add(1);
-            } else if(randNum < twoModifer / total) {
+            } else if(randNum < (twoModifer  + oneModifier) / total) {
                 rollResultsList.add(2);
-            } else if(randNum < threeModifer / total) {
+            } else if(randNum < (threeModifer + oneModifier + twoModifer) / total) {
                 rollResultsList.add(3);
-            } else if(randNum < fourModifer / total) {
+            } else if(randNum < (fourModifer + oneModifier +twoModifer + threeModifer) / total) {
                 rollResultsList.add(4);
-            } else if(randNum < fiveModifer / total) {
+            } else if(randNum < (fiveModifer + oneModifier + twoModifer + threeModifer + fourModifer) / total) {
                 rollResultsList.add(5);
-            } else if(randNum < sixModifer / total) {
+            } else if(randNum < (sixModifer + oneModifier + twoModifer + threeModifer + fourModifer + fiveModifer) / total ) {
                 rollResultsList.add(6);
-            } else if(randNum < sevenModifer / total) {
+            } else if(randNum < (sevenModifer + oneModifier + twoModifer + threeModifer + fourModifer + fiveModifer + sixModifer) / total ) {
                 rollResultsList.add(7);
-            } else if(randNum < eightModifer / total) {
+            } else if(randNum < (eightModifer + oneModifier + twoModifer + threeModifer + fourModifer + fiveModifer + sixModifer + sevenModifer) / total) {
                 rollResultsList.add(8);
             } else {
                 rollResultsList.add(0);
@@ -75,14 +77,22 @@ public class Roll {
 
 
         RollResult rollResult = new RollResult(rollResultsList);
+        gameState.addNewRoll(rollResult);
+
         // Run all event listeners for each Perk
 
         for(int i = 0; i < perks.size(); i++) {
             gameState = perks.get(i).onRoll(gameState);
         }
 
-        return gameState;
 
+
+        this.finalGameState = gameState;
+
+    }
+
+    public GameState getGameState() {
+        return this.finalGameState;
     }
 
 
