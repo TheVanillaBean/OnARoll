@@ -24,4 +24,21 @@ public class RollResult {
         this.die = results;
     }
 
+    public int getRollTotal() {
+        int total = 0;
+        for(int i = 0; i < die.size(); i++) {
+            total = total + die.get(i);
+        }
+        return total;
+    }
+
+    public boolean rollContains(int value) {
+        for(int i = 0; i < die.size(); i++) {
+            if(die.get(i) == value) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 }
