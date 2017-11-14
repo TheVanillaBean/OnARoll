@@ -1,12 +1,15 @@
 package com.onarollapp.onaroll.Perks;
 
-import com.onarollapp.onaroll.controller.RollResult;
+import com.onarollapp.onaroll.Logic.GameState;
+import com.onarollapp.onaroll.Logic.RollResult;
 
 /**
  * Created by Curt on 11/12/2017.
  */
 
 public abstract class Perk {
+
+    public int id;
 
     public double oneModifier = 0;
     public double twoModifer = 0;
@@ -17,6 +20,10 @@ public abstract class Perk {
     public double sevenModifer = 0;
     public double eightModifer = 0;
 
-    public abstract RollResult onRoll(RollResult roll);
+    public int dieModifier = 0;
+    public abstract GameState onRoll(GameState gameState);
+
+    // If a perk needs to store data based on the
+    public Object[] data;
 
 }
