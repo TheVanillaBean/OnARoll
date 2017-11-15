@@ -31,12 +31,4 @@ public class Dialog {
         return builder.build();
     }
 
-    public static MaterialDialog showProgressDeterminateDialog(Context context, String title, String content, boolean horizontal, boolean showMinMax, int max){
-        MaterialDialog.Builder builder = new MaterialDialog.Builder(context)
-                .title(title)
-                .content(content)
-                .progress(false, max, showMinMax);
-
-        return builder.build();
-    }
 }

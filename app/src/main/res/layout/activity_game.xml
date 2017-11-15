@@ -1,82 +1,149 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.onarollapp.onaroll.controller.GameActivity">
+    android:background="@color/colorBackground">
 
-    <TextView
-        android:id="@+id/currentScore_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:text="@string/current_score"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cumulativeScore_textView" />
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar"/>
 
-    <TextView
-        android:id="@+id/currentScore_textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="0"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/currentScore_label" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/toolbar"
+        android:layout_marginTop="16dp"
+        android:id="@+id/main_layout">
 
-    <Button
-        android:id="@+id/hold_die"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:text="@string/hold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />
+        <LinearLayout
+            android:id="@+id/current_player_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:orientation="vertical"
+            android:weightSum="4">
 
-    <Button
-        android:id="@+id/roll_die"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:text="@string/roll_die"
-        app:layout_constraintBottom_toTopOf="@+id/hold_die"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />
+            <TextView
+                android:id="@+id/current_player_turn_label"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:layout_margin="8dp"
+                android:textSize="32sp"
+                android:textColor="@android:color/black"
+                android:text="Your Score"
+                android:textAllCaps="true"/>
 
-    <TextView
-        android:id="@+id/cumulativeScore_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="@string/cumulative_score"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+            <TextView
+                android:id="@+id/current_player_score_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:layout_margin="8dp"
+                android:textSize="32sp"
+                android:textColor="@android:color/holo_red_dark"
+                android:text="88"
+                android:layout_gravity="center"/>
 
-    <TextView
-        android:id="@+id/cumulativeScore_textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="0"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cumulativeScore_label" />
+            <TextView
+                android:id="@+id/other_player_turn_label"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:layout_margin="8dp"
+                android:textSize="18sp"
+                android:textColor="@android:color/black"
+                android:text="Their Score"
+                android:textAllCaps="true"
+                android:layout_gravity="center"/>
 
-    <Button
-        android:id="@+id/testGame"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="DONT PRESS THIS BUTTON"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-</android.support.constraint.ConstraintLayout>
+            <TextView
+                android:id="@+id/other_global_score_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:layout_margin="8dp"
+                android:textSize="24sp"
+                android:textColor="@android:color/holo_red_dark"
+                android:text="11"
+                android:layout_gravity="center"/>
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            android:background="@android:color/holo_red_light"
+            android:layout_above="@id/button_layout"
+            android:layout_centerHorizontal="true"
+            android:orientation="vertical"
+            android:weightSum="5">
+
+            <TextView
+                android:id="@+id/current_score_label"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="2"
+                android:layout_margin="8dp"
+                android:textSize="24sp"
+                android:textColor="@android:color/black"
+                android:text="Current"
+                android:textAllCaps="true"/>
+
+            <TextView
+                android:id="@+id/current_score_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="3"
+                android:layout_margin="8dp"
+                android:textSize="32sp"
+                android:textColor="@android:color/white"
+                android:text="11"
+                android:layout_gravity="center"
+                android:textAllCaps="true"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/button_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_alignParentBottom="true"
+            android:weightSum="2">
+
+            <Button
+                android:id="@+id/hold_btn"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_weight="1"
+                android:text="Hold"
+                android:textAllCaps="false"
+                android:textSize="28sp"
+                android:background="@color/colorPrimaryDark"
+                android:textColor="@color/plain_text_selector" />
+
+            <Button
+                android:id="@+id/roll_btn"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_weight="1"
+                android:text="Roll"
+                android:textAllCaps="false"
+                android:textSize="28sp"
+                android:background="@android:color/holo_red_dark"
+                android:textColor="@color/plain_text_selector" />
+
+
+        </LinearLayout>
+
+
+    </RelativeLayout>
+
+</RelativeLayout>
+
