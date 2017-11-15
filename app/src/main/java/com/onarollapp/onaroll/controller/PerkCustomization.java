@@ -12,9 +12,15 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.onarollapp.onaroll.Perks.EmptyPerk;
+import com.onarollapp.onaroll.Perks.IncreaseChanceToRollFive;
+import com.onarollapp.onaroll.Perks.IncreaseChanceToRollFour;
 import com.onarollapp.onaroll.Perks.IncreaseChanceToRollOne;
+import com.onarollapp.onaroll.Perks.IncreaseChanceToRollSix;
+import com.onarollapp.onaroll.Perks.IncreaseChanceToRollThree;
+import com.onarollapp.onaroll.Perks.IncreaseChanceToRollTwo;
 import com.onarollapp.onaroll.Perks.Perk;
 import com.onarollapp.onaroll.Perks.PerkListItem;
+import com.onarollapp.onaroll.Perks.RollOneExtraDie;
 import com.onarollapp.onaroll.R;
 import com.onarollapp.onaroll.Services.DataService;
 import com.onarollapp.onaroll.Users.Player;
@@ -44,7 +50,26 @@ public class PerkCustomization extends AppCompatActivity {
         player.perkList.add(new IncreaseChanceToRollOne());
         player.perkList.add(new IncreaseChanceToRollOne());
         player.perkList.add(new IncreaseChanceToRollOne());
-        player.perkList.add(new IncreaseChanceToRollOne());
+        player.perkList.add(new IncreaseChanceToRollTwo());
+        player.perkList.add(new IncreaseChanceToRollTwo());
+        player.perkList.add(new IncreaseChanceToRollTwo());
+        player.perkList.add(new IncreaseChanceToRollThree());
+        player.perkList.add(new IncreaseChanceToRollThree());
+        player.perkList.add(new IncreaseChanceToRollFour());
+        player.perkList.add(new IncreaseChanceToRollFive());
+        player.perkList.add(new IncreaseChanceToRollFive());
+        player.perkList.add(new IncreaseChanceToRollFive());
+        player.perkList.add(new IncreaseChanceToRollFive());
+        player.perkList.add(new IncreaseChanceToRollFive());
+        player.perkList.add(new IncreaseChanceToRollFive());
+        player.perkList.add(new IncreaseChanceToRollFive());
+        player.perkList.add(new IncreaseChanceToRollSix());
+        player.perkList.add(new IncreaseChanceToRollSix());
+        player.perkList.add(new IncreaseChanceToRollSix());
+        player.perkList.add(new RollOneExtraDie());
+
+
+
         instance = this;
 
         ArrayList<PerkListItem> perkItems = new ArrayList<PerkListItem>();
