@@ -9,9 +9,10 @@ import com.onarollapp.onaroll.Logic.RollResult;
 
 public class IncreaseChanceToRollOne extends Perk{
 
-    IncreaseChanceToRollOne() {
+    public IncreaseChanceToRollOne() {
         this.id = "1";
         this.oneModifier = 0.01; // This perk gives the User an increased chance to roll a 1
+        this.title = "One Die Increase";
     }
 
     public GameState onRoll(GameState gameState) {

@@ -12,7 +12,7 @@ import com.onarollapp.onaroll.Users.Player;
 public class DataService {
     private static final DataService instance = new DataService();
 
-    DataService() {
+    private DataService() {
     }
 
     public static DataService getInstance() {
@@ -20,6 +20,10 @@ public class DataService {
     }
 
 
+    // Return the player object of the user currently logged in
+    public Player getLoggedInPlayer() {
+        return null;
+    }
     // Get Player object from DB by ID
     public Player getPlayer(String playerId) {
         return null;
