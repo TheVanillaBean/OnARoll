@@ -123,7 +123,7 @@ public class PerkCustomization extends AppCompatActivity {
             TextView amountAvailable = (TextView) rowView.findViewById(R.id.amount_available);
 
             title.setText(perks.get(position).perk.title);
-            amountAvailable.setText(perks.get(position).amountAvailable);
+            amountAvailable.setText(Integer.toString(perks.get(position).amountAvailable));
 
             return rowView;
         }
