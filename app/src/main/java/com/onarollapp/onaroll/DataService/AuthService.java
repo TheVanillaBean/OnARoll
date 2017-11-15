@@ -17,13 +17,14 @@ import com.google.firebase.auth.FirebaseUser;
 import com.onarollapp.onaroll.POJO.AuthEvent;
 import com.onarollapp.onaroll.POJO.EmailUpdateEvent;
 import com.onarollapp.onaroll.POJO.PasswordResetEvent;
+import com.onarollapp.onaroll.util.L;
 
 import org.greenrobot.eventbus.EventBus;
 
 public class AuthService {
 
     private static final AuthService _instance = new AuthService();
-    private static final FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    private static FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
     public static AuthService getInstance() {
         return _instance;

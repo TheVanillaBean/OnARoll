@@ -34,7 +34,7 @@
             android:name=".controller.GameActivity"
             android:label="@string/title_activity_game" />
         <activity
-            android:name=".controller.ForgotPassword"
+            android:name=".controller.ForgotPasswordActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".controller.LoginActivity"

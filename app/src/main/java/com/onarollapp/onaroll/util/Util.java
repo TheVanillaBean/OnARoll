@@ -20,6 +20,23 @@ import java.util.regex.Pattern;
 
 public class Util {
 
+    //Google Play
+    public static boolean isGooglePlayServicesAvailable(Activity activity) {
+
+        GoogleApiAvailability googleAPI = GoogleApiAvailability.getInstance();
+        int result = googleAPI.isGooglePlayServicesAvailable(activity);
+        if(result != ConnectionResult.SUCCESS) {
+            if(googleAPI.isUserResolvableError(result)) {
+                googleAPI.getErrorDialog(activity, result,
+                        Constants.ERROR_DIALOG_REQUEST).show();
+            }
+
+            return false;
+        }
+
+        return true;
+    }
+
     public static int getColor(Context context, int id) {
         final int version = Build.VERSION.SDK_INT;
         if (version >= 23) {
