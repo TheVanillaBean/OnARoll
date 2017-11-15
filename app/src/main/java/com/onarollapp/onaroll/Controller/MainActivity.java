@@ -17,10 +17,17 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
-        final Button goToShopButton = (Button)findViewById(R.id.go_to_shop);
+        Button goToShopButton = (Button)findViewById(R.id.go_to_shop);
         goToShopButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 changeActivity(ShopActivity.class);
+            }
+        });
+
+        Button goToPerkCustomization = (Button)findViewById(R.id.go_to_perk_customiztion);
+        goToPerkCustomization.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                changeActivity(PerkCustomization.class);
             }
         });
 

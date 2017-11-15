@@ -29,14 +29,14 @@
                 android:layout_weight="1">
 
                 <TextView
-                    android:id="@+id/textView2"
+                    android:id="@+id/perk_customization_perk1_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Perk 1"
                     android:textSize="18sp" />
 
                 <TextView
-                    android:id="@+id/equipped_perk_1"
+                    android:id="@+id/perk_customization_perk1_description"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_column="0"
@@ -50,7 +50,7 @@
                 android:layout_weight="1">
 
                 <TextView
-                    android:id="@+id/textView3"
+                    android:id="@+id/perk_customization_perk2_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Perk 2"
@@ -63,7 +63,7 @@
                 android:layout_weight="1">
 
                 <TextView
-                    android:id="@+id/textView4"
+                    android:id="@+id/perk_customization_perk3_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Perk 3"
@@ -76,7 +76,7 @@
                 android:layout_weight="1">
 
                 <TextView
-                    android:id="@+id/textView5"
+                    android:id="@+id/perk_customization_perk4_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Perk 4"
@@ -89,7 +89,7 @@
                 android:layout_weight="1">
 
                 <TextView
-                    android:id="@+id/textView6"
+                    android:id="@+id/perk_customization_perk5_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Perk 5"
@@ -102,7 +102,7 @@
                 android:layout_weight="1">
 
                 <TextView
-                    android:id="@+id/textView7"
+                    android:id="@+id/perk_customization_perk6_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Perk 6"
@@ -115,7 +115,7 @@
                 android:layout_weight="1">
 
                 <TextView
-                    android:id="@+id/textView8"
+                    android:id="@+id/perk_customization_perk7_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Perk 7"
@@ -138,6 +138,7 @@
                 android:textSize="24sp" />
 
             <ListView
+                android:id="@+id/perk_customization_your_perks_list"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
         </LinearLayout>
