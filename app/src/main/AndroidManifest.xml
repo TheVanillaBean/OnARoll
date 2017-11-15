@@ -13,27 +13,41 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="false"
         android:theme="@style/AppTheme">
-        <activity android:name=".Controller.MainActivity"
-            android:screenOrientation="landscape">
+        <activity
+            android:name=".controller.MainActivity"
+            android:screenOrientation="portrait">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
         <activity
-            android:name=".Controller.ShopActivity"
-            android:label="@string/title_activity_shop"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:name=".controller.ShopActivity"
+            android:label="@string/title_activity_shop" />
         <activity
-            android:name=".Controller.PerkCustomization"
-            android:label="@string/title_activity_perk_customization"
-            android:theme="@style/AppTheme.NoActionBar">
-        </activity>
+            android:name=".controller.PerkCustomization"
+            android:label="@string/title_activity_perk_customization" />
         <activity
-            android:name=".Controller.GameActivity"
-            android:label="@string/title_activity_game"
-            android:theme="@style/AppTheme.NoActionBar">
-        </activity>
+            android:name=".controller.GameActivity"
+            android:label="@string/title_activity_game" />
+        <activity
+            android:name=".controller.ForgotPassword"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".controller.LoginActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".controller.PlayerMainActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".controller.SignUpActivity"
+            android:screenOrientation="portrait" />
+
     </application>
 
 </manifest>

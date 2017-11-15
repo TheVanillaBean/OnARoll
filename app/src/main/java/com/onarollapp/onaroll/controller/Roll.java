@@ -1,4 +1,4 @@
-package com.onarollapp.onaroll.Controller;
+package com.onarollapp.onaroll.controller;
 
 /**
  * Created by Curt on 11/12/2017.

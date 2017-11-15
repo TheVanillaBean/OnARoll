@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.onarollapp.onaroll.Controller.PerkCustomization"
+    tools:context="com.onarollapp.onaroll.controller.PerkCustomization"
     tools:showIn="@layout/activity_perk_customization">
 
     <LinearLayout
@@ -14,7 +14,8 @@
         android:orientation="horizontal"
         android:weightSum="1"
         tools:layout_editor_absoluteX="8dp"
-        tools:layout_editor_absoluteY="8dp">
+        tools:layout_editor_absoluteY="8dp"
+        tools:ignore="MissingConstraints">
 
         <LinearLayout
             android:layout_width="match_parent"

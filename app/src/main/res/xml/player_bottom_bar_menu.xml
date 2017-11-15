@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<tabs xmlns:android="http://schemas.android.com/apk/res/android">
+    <tab
+        id="@+id/bb_menu_profile"
+        icon="@drawable/ic_user_96"
+        title="Profile"/>
+    <tab
+        id="@+id/bb_menu_dashboard"
+        icon="@drawable/ic_home"
+        title="Dashboard"/>
+    <tab
+        id="@+id/bb_menu_leaderboard"
+        icon="@drawable/ic_stats"
+        title="Leaderboard"/>
+</tabs>

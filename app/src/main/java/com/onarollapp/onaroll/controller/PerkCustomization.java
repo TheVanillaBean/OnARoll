@@ -1,4 +1,4 @@
-package com.onarollapp.onaroll.Controller;
+package com.onarollapp.onaroll.controller;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;

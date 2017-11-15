@@ -1,6 +1,6 @@
 package com.onarollapp.onaroll.Perks;
 
-import com.onarollapp.onaroll.Controller.RollResult;
+import com.onarollapp.onaroll.controller.RollResult;
 
 /**
  * Created by Curt on 11/12/2017.

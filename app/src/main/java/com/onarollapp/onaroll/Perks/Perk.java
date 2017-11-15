@@ -1,10 +1,6 @@
 package com.onarollapp.onaroll.Perks;
 
-import com.onarollapp.onaroll.Controller.RollEvent;
-import com.onarollapp.onaroll.Controller.RollResult;
-
-import java.lang.reflect.Method;
-import java.util.concurrent.Callable;
+import com.onarollapp.onaroll.controller.RollResult;
 
 /**
  * Created by Curt on 11/12/2017.
