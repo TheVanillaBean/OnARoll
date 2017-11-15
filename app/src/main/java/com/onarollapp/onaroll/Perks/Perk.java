@@ -11,6 +11,7 @@ public abstract class Perk {
     public String id;
     public String title;
     public String description;
+    public String icon;
 
     public double oneModifier = 0;
     public double twoModifer = 0;
