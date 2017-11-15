@@ -10,38 +10,22 @@ public class Constants {
     public static final String EXTRA_USER_PARCEL = "userParcel";
     public static final String EXTRA_GAME_PARCEL = "gameParcel";
 
-    //Game Status
-    public static final String STATUS_NEW = "noMovies";
-    public static final String STATUS_EXISTING = "populated";
-    public static final String STATUS_FINISHED = "finished";
-
-    public static final int TOTAL_MOVIE_IDS = 60;
-
     //Model - User
     public static final String UUID = "uuid";
     public static final String EMAIL = "email";
-    public static final String FULL_NAME = "fullName";
-    public static final String PHONE_NUMBER = "phoneNumber";
-    public static final String PHONE_NUMBER_VERIFIED = "phoneNumberVerified";
     public static final String PASSWORD = "password";
-    public static final String USER_PROFILE_PIC_LOC = "userProfilePicLocation";
-    public static final String DEVICE_TOKEN = "deviceToken";
-    public static final String ALL_TIME_RANK = "userAllTimeRank";
 
     //Model - Game
-    public static final String MOVIE_LIST = "movieList";
-    public static final String STATUS = "status";
-    public static final String USER_ID = "userID";
-    public static final String USER_NAME = "userName";
-    public static final String SCORE = "userScore";
-    public static final String TIMESTAMP = "timestamp";
+    public static final String PLAYER_ONE_ID = "playerOneID";
+    public static final String PLAYER_TWO_ID = "playerTwoID";
+    public static final String PLAYER_ONE_SCORE = "playerOneScore";
+    public static final String PLAYER_TWO_SCORE = "playerTwoScore";
+    public static final String TURN = "turn";
 
     //CHILD NODES
     public static final String FIR_CHILD_USERS = "user";
     public static final String FIR_CHILD_GAMES = "games";
-    public static final String FIR_CHILD_USER_GAMES = "user-games";
-    public static final String FIR_CHILD_MOVIES = "movies";
-    public static final String FIR_CHILD_ALL_TIME_LEADERBOARD = "allTimeRank";
-    public static final String FIR_CHILD_MOVIE_RATINGS= "movieRatings";
+    public static final String FIR_CHILD_ACTIVE_GAMES = "games-active";
+    public static final String FIR_CHILD_PENDING_GAMES = "games-pending";
 
 }

@@ -76,7 +76,6 @@ public class ProfileFragment extends Fragment {
     public void onUserCastCallBack(UserCastEvent event) {
         if (event.getError() == null){
             mCurrentUser = event.getUser();
-            mNameLabel.setText(mCurrentUser.getFullName());
             mEmailLabel.setText(mCurrentUser.getEmail());
             randomColor = generator.getRandomColor();
             mTextDrawable = TextDrawable.builder()

@@ -49,20 +49,12 @@ public class FBDataService {
         return mDatabase.getReference(Constants.FIR_CHILD_GAMES);
     }
 
-    public DatabaseReference userGamesRef() {
-        return mDatabase.getReference(Constants.FIR_CHILD_USER_GAMES);
+    public DatabaseReference activeGamesRef() {
+        return mDatabase.getReference(Constants.FIR_CHILD_ACTIVE_GAMES);
     }
 
-    public DatabaseReference moviesRef() {
-        return mDatabase.getReference(Constants.FIR_CHILD_MOVIES);
-    }
-
-    public DatabaseReference allTimeRankRef() {
-        return mDatabase.getReference(Constants.FIR_CHILD_ALL_TIME_LEADERBOARD);
-    }
-
-    public DatabaseReference movieRatingsRef() {
-        return mDatabase.getReference(Constants.FIR_CHILD_MOVIE_RATINGS);
+    public DatabaseReference pendingGamesRef() {
+        return mDatabase.getReference(Constants.FIR_CHILD_PENDING_GAMES);
     }
 
     //-----------------End Database References------------------//
@@ -82,19 +74,6 @@ public class FBDataService {
         });
     }
 
-    public void updateUser(final User user){
-        Map<String, Object> properties = user.toMap();
-        usersRef().child(user.getUUID()).updateChildren(properties, new DatabaseReference.CompletionListener() {
-            @Override
-            public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
-                if (databaseError == null){
-                    EventBus.getDefault().post(new UserUpdateEvent(null));
-                }else{
-                    EventBus.getDefault().post(new UserUpdateEvent(databaseError.getMessage()));
-                }
-            }
-        });
-    }
 
     public FBDataService(){
     }
