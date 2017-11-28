@@ -1,4 +1,4 @@
-package com.onarollapp.onaroll.Controller;
+package com.onarollapp.onaroll.controller;
 
 import android.content.Context;
 import android.os.Bundle;
