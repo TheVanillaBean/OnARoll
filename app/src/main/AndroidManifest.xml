@@ -14,11 +14,6 @@
         android:supportsRtl="false"
         android:theme="@style/AppTheme">
 
-        <activity
-            android:name=".controller.MainActivity"
-            android:screenOrientation="portrait">
-
-        </activity>
 
         <activity
             android:name=".controller.ShopActivity"
@@ -32,11 +27,7 @@
             android:name=".controller.GameActivity"
             android:screenOrientation="portrait">
 
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
 
         </activity>
 
@@ -46,7 +37,13 @@
 
         <activity
             android:name=".controller.LoginActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait">
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+        </activity>
 
         <activity
             android:name=".controller.PlayerMainActivity"
