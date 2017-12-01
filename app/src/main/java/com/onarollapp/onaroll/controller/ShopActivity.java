@@ -25,6 +25,7 @@ import com.onarollapp.onaroll.Perks.PerkListItem;
 import com.onarollapp.onaroll.Perks.RollOneExtraDie;
 import com.onarollapp.onaroll.R;
 import com.onarollapp.onaroll.Services.DataService;
+import com.onarollapp.onaroll.ShopModels.PerkShopItem;
 import com.onarollapp.onaroll.ShopModels.ShopItem;
 import com.onarollapp.onaroll.Users.Player;
 
@@ -46,7 +47,7 @@ public class ShopActivity extends AppCompatActivity {
 
         ListView yourPerkList = (ListView) findViewById(R.id.shop_list);
 
-        ShopListAdapter adapter = new ShopListAdapter(this, shopItems);
+        final ShopListAdapter adapter = new ShopListAdapter(this, shopItems);
         yourPerkList.setAdapter(adapter);
 
 
@@ -55,7 +56,12 @@ public class ShopActivity extends AppCompatActivity {
                                     int position, long id) {
                 DataService ds = DataService.getInstance();
                 Player player = ds.getLoggedInPlayer();
-
+                ds.buyPerkShopItem("sds");
+                ds.buyPerkShopItem(new PerkShopItem(new EmptyPerk(), 10, "2121"));
+                if(ds.buyPerkShopItem((PerkShopItem)adapter.shopItems.get(position))) {
+                    ActionBar actionBar = getSupportActionBar();
+                    actionBar.setTitle("Shop - $" + player.credits);
+                } 
 
             }
         });
@@ -91,7 +97,9 @@ public class ShopActivity extends AppCompatActivity {
             description.setText(shopItems.get(position).description);
 
             Button buyButton = (Button) rowView.findViewById(R.id.shop_item_buy_button);
-            buyButton.setText("Buy " + shopItems.get(position).price);
+            buyButton.setText("Buy $" + shopItems.get(position).price);
+
+
 
             return rowView;
         }
