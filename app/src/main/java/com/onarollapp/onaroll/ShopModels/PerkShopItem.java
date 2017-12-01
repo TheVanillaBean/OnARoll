@@ -8,11 +8,13 @@ import com.onarollapp.onaroll.Perks.Perk;
 
 public class PerkShopItem extends ShopItem {
 
-    PerkShopItem(Perk perk, int price, String shopId) {
+    public Perk perk;
+    public PerkShopItem(Perk perk, int price, String shopId) {
         this.itemId = perk.id;
         this.price = price;
         this.shopId = shopId;
         this.title = perk.title;
         this.description = perk.description;
+        this.perk = perk;
     }
 }
