@@ -14,5 +14,5 @@ public class Player {
     public int credits;
 
     public ArrayList<Perk> perkList;
-    public ArrayList<Perk> equippedPerks;
+    public Perk[] equippedPerks = new Perk[7];
 }
