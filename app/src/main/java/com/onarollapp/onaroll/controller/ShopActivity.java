@@ -13,16 +13,6 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.onarollapp.onaroll.Perks.EmptyPerk;
-import com.onarollapp.onaroll.Perks.IncreaseChanceToRollFive;
-import com.onarollapp.onaroll.Perks.IncreaseChanceToRollFour;
-import com.onarollapp.onaroll.Perks.IncreaseChanceToRollOne;
-import com.onarollapp.onaroll.Perks.IncreaseChanceToRollSix;
-import com.onarollapp.onaroll.Perks.IncreaseChanceToRollThree;
-import com.onarollapp.onaroll.Perks.IncreaseChanceToRollTwo;
-import com.onarollapp.onaroll.Perks.Perk;
-import com.onarollapp.onaroll.Perks.PerkListItem;
-import com.onarollapp.onaroll.Perks.RollOneExtraDie;
 import com.onarollapp.onaroll.R;
 import com.onarollapp.onaroll.Services.DataService;
 import com.onarollapp.onaroll.ShopModels.PerkShopItem;
@@ -56,21 +46,16 @@ public class ShopActivity extends AppCompatActivity {
                                     int position, long id) {
                 DataService ds = DataService.getInstance();
                 Player player = ds.getLoggedInPlayer();
-                ds.buyPerkShopItem("sds");
-                ds.buyPerkShopItem(new PerkShopItem(new EmptyPerk(), 10, "2121"));
-                if(ds.buyPerkShopItem((PerkShopItem)adapter.shopItems.get(position))) {
+                if (ds.buyPerkShopItem((PerkShopItem) adapter.shopItems.get(position))) {
                     ActionBar actionBar = getSupportActionBar();
                     actionBar.setTitle("Shop - $" + player.credits);
-                } 
+                }
 
             }
         });
 
 
     }
-
-
-
 
 
     private class ShopListAdapter extends ArrayAdapter<ShopItem> {
@@ -98,7 +83,6 @@ public class ShopActivity extends AppCompatActivity {
 
             Button buyButton = (Button) rowView.findViewById(R.id.shop_item_buy_button);
             buyButton.setText("Buy $" + shopItems.get(position).price);
-
 
 
             return rowView;
