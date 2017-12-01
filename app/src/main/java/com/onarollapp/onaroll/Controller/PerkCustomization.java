@@ -12,7 +12,6 @@ import android.widget.GridLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.onarollapp.onaroll.Perks.EmptyPerk;
 import com.onarollapp.onaroll.Perks.IncreaseChanceToRollFive;
 import com.onarollapp.onaroll.Perks.IncreaseChanceToRollFour;
 import com.onarollapp.onaroll.Perks.IncreaseChanceToRollOne;
@@ -89,12 +88,12 @@ public class PerkCustomization extends AppCompatActivity {
         // Remove already equipped perks from available perk list
         for (int i = 0; i < player.equippedPerks.length; i++) {
             // Id of Empty Perk
-            if(!player.equippedPerks[i].id.equals("2")) {
+            if (!player.equippedPerks[i].id.equals("2")) {
                 boolean wasInList = false;
-                for(int j = 0; j < perkItems.size(); j++) {
+                for (int j = 0; j < perkItems.size(); j++) {
                     if (perkItems.get(j).perk.id.equals(player.perkList.get(i).id)) {
                         wasInList = true;
-                        if(perkItems.get(j).amountAvailable > 1) {
+                        if (perkItems.get(j).amountAvailable > 1) {
                             perkItems.get(j).amountAvailable--;
                         } else {
                             perkItems.remove(j);
@@ -106,33 +105,94 @@ public class PerkCustomization extends AppCompatActivity {
 
         yourPerkList = (ListView) findViewById(R.id.perk_customization_your_perks_list);
 
-        PerkListAdapter adapter = new PerkListAdapter(this, perkItems);
+        final PerkListAdapter adapter = new PerkListAdapter(this, perkItems);
         yourPerkList.setAdapter(adapter);
 
 
         yourPerkList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
-               if(PerkCustomization.selectedPerkSlot != -1) {
-                   // Does not equal empty perk
-                   if(!player.equippedPerks[PerkCustomization.selectedPerkSlot].id.equals("2")) {
-                           boolean wasInList = false;
-                           //parent.getItemAtPosition(position)
 
-                       // Just need to figure out how to get the reference to the list view list in here
-                       /*for(int j = 0; j < perkItems.size(); j++) {
-                               if (perkItems.get(j).perk.id.equals(player.perkList.get(i).id)) {
-                                   wasInList = true;
-                                   if(perkItems.get(j).amountAvailable > 1) {
-                                       perkItems.get(j).amountAvailable--;
-                                   } else {
-                                       perkItems.remove(j);
-                                   }
-                               }
-                           }*/
 
-                   }
-               }
+                if (PerkCustomization.selectedPerkSlot != -1) {
+                    // If was not empty perk
+                    if (!player.equippedPerks[PerkCustomization.selectedPerkSlot].id.equals("2")) {
+                        // Add old perk to list
+                        boolean wasInList = false;
+                        // Check list of perk items if they already have that perk
+                        for (int j = 0; j < adapter.perks.size() && !wasInList; j++) {
+                            if (adapter.perks.get(j).perk.id.equals(player.perkList.get(j).id)) {
+                                wasInList = true;
+                                adapter.perks.get(j).amountAvailable++;
+                            }
+                        }
+
+                        if (!wasInList) {
+                            // If the perk Items list does not contain that perk add it to the list
+                            adapter.perks.add(new PerkListItem(player.equippedPerks[PerkCustomization.selectedPerkSlot], 1));
+                        }
+
+                    }
+                    // Remove new perk from list
+                    boolean wasInList = false;
+                    for (int j = 0; j < adapter.perks.size(); j++) {
+                        if (adapter.perks.get(j).perk.id.equals(player.perkList.get(j).id)) {
+                            wasInList = true;
+                            if (adapter.perks.get(j).amountAvailable > 1) {
+                                adapter.perks.get(j).amountAvailable--;
+                            } else {
+                                adapter.perks.remove(j);
+                            }
+                        }
+                    }
+                }
+
+                // Add perk to equipped list
+
+                switch (PerkCustomization.selectedPerkSlot) {
+                    case 0:
+                        TextView textView0 = (TextView) findViewById(R.id.perk_customization_perk1_title);
+                        textView0.setText(adapter.perks.get(position).perk.title);
+                        player.equippedPerks[PerkCustomization.selectedPerkSlot] = adapter.perks.get(position).perk;
+                        ds.updatePlayer(player);
+                        break;
+                    case 1:
+                        TextView textView1 = (TextView) findViewById(R.id.perk_customization_perk1_title);
+                        textView1.setText(adapter.perks.get(position).perk.title);
+                        player.equippedPerks[PerkCustomization.selectedPerkSlot] = adapter.perks.get(position).perk;
+                        ds.updatePlayer(player);
+                        break;
+                    case 2:
+                        TextView textView2 = (TextView) findViewById(R.id.perk_customization_perk1_title);
+                        textView2.setText(adapter.perks.get(position).perk.title);
+                        player.equippedPerks[PerkCustomization.selectedPerkSlot] = adapter.perks.get(position).perk;
+                        ds.updatePlayer(player);
+                        break;
+                    case 3:
+                        TextView textView3 = (TextView) findViewById(R.id.perk_customization_perk1_title);
+                        textView3.setText(adapter.perks.get(position).perk.title);
+                        player.equippedPerks[PerkCustomization.selectedPerkSlot] = adapter.perks.get(position).perk;
+                        ds.updatePlayer(player);
+                        break;
+                    case 4:
+                        TextView textView4 = (TextView) findViewById(R.id.perk_customization_perk1_title);
+                        textView4.setText(adapter.perks.get(position).perk.title);
+                        player.equippedPerks[PerkCustomization.selectedPerkSlot] = adapter.perks.get(position).perk;
+                        ds.updatePlayer(player);
+                        break;
+                    case 5:
+                        TextView textView5 = (TextView) findViewById(R.id.perk_customization_perk1_title);
+                        textView5.setText(adapter.perks.get(position).perk.title);
+                        player.equippedPerks[PerkCustomization.selectedPerkSlot] = adapter.perks.get(position).perk;
+                        ds.updatePlayer(player);
+                        break;
+                    case 6:
+                        TextView textView6 = (TextView) findViewById(R.id.perk_customization_perk1_title);
+                        textView6.setText(adapter.perks.get(position).perk.title);
+                        player.equippedPerks[PerkCustomization.selectedPerkSlot] = adapter.perks.get(position).perk;
+                        ds.updatePlayer(player);
+                        break;
+                }
 
             }
         });
@@ -188,11 +248,7 @@ public class PerkCustomization extends AppCompatActivity {
         });
 
 
-
-
-
     }
-
 
 
     private class PerkListAdapter extends ArrayAdapter<PerkListItem> {
