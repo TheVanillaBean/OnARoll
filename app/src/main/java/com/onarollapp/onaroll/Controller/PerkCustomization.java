@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.GridLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -31,9 +32,7 @@ public class PerkCustomization extends AppCompatActivity {
 
     private DataService ds;
     private Player player;
-    private int selectedPerkSlot = -1;
-    private int selectedPerk = -1;
-    private static PerkCustomization instance;
+    public static int selectedPerkSlot = -1;
     private ListView yourPerkList;
 
 
@@ -42,11 +41,11 @@ public class PerkCustomization extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_perk_customization);
 
+        PerkCustomization.selectedPerkSlot = -1;
         ds = DataService.getInstance();
         //player = ds.getLoggedInPlayer();
         player = new Player();
         player.perkList = new ArrayList<Perk>();
-        player.perkList.add(new EmptyPerk());
         player.perkList.add(new IncreaseChanceToRollOne());
         player.perkList.add(new IncreaseChanceToRollOne());
         player.perkList.add(new IncreaseChanceToRollOne());
@@ -69,9 +68,6 @@ public class PerkCustomization extends AppCompatActivity {
         player.perkList.add(new RollOneExtraDie());
 
 
-
-        instance = this;
-
         ArrayList<PerkListItem> perkItems = new ArrayList<PerkListItem>();
         // For each perk the player has
         for (int i = 0; i < player.perkList.size(); i++) {
@@ -90,6 +86,24 @@ public class PerkCustomization extends AppCompatActivity {
             }
         }
 
+        // Remove already equipped perks from available perk list
+        for (int i = 0; i < player.equippedPerks.length; i++) {
+            // Id of Empty Perk
+            if(!player.equippedPerks[i].id.equals("2")) {
+                boolean wasInList = false;
+                for(int j = 0; j < perkItems.size(); j++) {
+                    if (perkItems.get(j).perk.id.equals(player.perkList.get(i).id)) {
+                        wasInList = true;
+                        if(perkItems.get(j).amountAvailable > 1) {
+                            perkItems.get(j).amountAvailable--;
+                        } else {
+                            perkItems.remove(j);
+                        }
+                    }
+                }
+            }
+        }
+
         yourPerkList = (ListView) findViewById(R.id.perk_customization_your_perks_list);
 
         PerkListAdapter adapter = new PerkListAdapter(this, perkItems);
@@ -99,34 +113,87 @@ public class PerkCustomization extends AppCompatActivity {
         yourPerkList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
-                PerkCustomization instance = PerkCustomization.getInstance();
-                instance.selectPerk(position);
+               if(PerkCustomization.selectedPerkSlot != -1) {
+                   // Does not equal empty perk
+                   if(!player.equippedPerks[PerkCustomization.selectedPerkSlot].id.equals("2")) {
+                           boolean wasInList = false;
+                           //parent.getItemAtPosition(position)
+
+                       // Just need to figure out how to get the reference to the list view list in here
+                       /*for(int j = 0; j < perkItems.size(); j++) {
+                               if (perkItems.get(j).perk.id.equals(player.perkList.get(i).id)) {
+                                   wasInList = true;
+                                   if(perkItems.get(j).amountAvailable > 1) {
+                                       perkItems.get(j).amountAvailable--;
+                                   } else {
+                                       perkItems.remove(j);
+                                   }
+                               }
+                           }*/
+
+                   }
+               }
+
+            }
+        });
+
+        GridLayout gridLayout = (GridLayout) findViewById(R.id.perk_customization_perk1_layout);
+        gridLayout.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                PerkCustomization.selectedPerkSlot = 0;
+
+            }
+        });
+        GridLayout gridLayout2 = (GridLayout) findViewById(R.id.perk_customization_perk2_layout);
+        gridLayout.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                PerkCustomization.selectedPerkSlot = 1;
+
+            }
+        });
+        GridLayout gridLayout3 = (GridLayout) findViewById(R.id.perk_customization_perk3_layout);
+        gridLayout.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                PerkCustomization.selectedPerkSlot = 2;
+
+            }
+        });
+        GridLayout gridLayout4 = (GridLayout) findViewById(R.id.perk_customization_perk4_layout);
+        gridLayout.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                PerkCustomization.selectedPerkSlot = 3;
+
+            }
+        });
+        GridLayout gridLayout5 = (GridLayout) findViewById(R.id.perk_customization_perk5_layout);
+        gridLayout.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                PerkCustomization.selectedPerkSlot = 4;
+
+            }
+        });
+        GridLayout gridLayout6 = (GridLayout) findViewById(R.id.perk_customization_perk6_layout);
+        gridLayout.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                PerkCustomization.selectedPerkSlot = 5;
+
+            }
+        });
+        GridLayout gridLayout7 = (GridLayout) findViewById(R.id.perk_customization_perk7_layout);
+        gridLayout.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                PerkCustomization.selectedPerkSlot = 6;
+
             }
         });
 
 
-    }
 
 
-    public void selectPerk(int perkPosition) {
-
-        // If no perk slot is slected do nothing
-        if (this.selectedPerkSlot != -1) {
-            // Decrement counter for this type of perk
-        }
 
     }
 
-    public void setSelectedPerkSlot(int slotPosition) {
-        // If a perk slot is selected
-        if (this.selectedPerkSlot != -1) {
 
-        }
-    }
-
-    public static PerkCustomization getInstance() {
-        return instance;
-    }
 
     private class PerkListAdapter extends ArrayAdapter<PerkListItem> {
         private final Context context;

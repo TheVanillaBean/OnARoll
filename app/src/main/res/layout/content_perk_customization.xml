@@ -25,9 +25,11 @@
             android:weightSum="7">
 
             <GridLayout
+                android:id="@+id/perk_customization_perk1_layout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1">
+                android:layout_weight="1"
+                android:clickable="true">
 
                 <TextView
                     android:id="@+id/perk_customization_perk1_title"
@@ -39,6 +41,7 @@
             </GridLayout>
 
             <GridLayout
+                android:id="@+id/perk_customization_perk2_layout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1">
@@ -52,6 +55,7 @@
             </GridLayout>
 
             <GridLayout
+                android:id="@+id/perk_customization_perk3_layout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1">
@@ -65,6 +69,7 @@
             </GridLayout>
 
             <GridLayout
+                android:id="@+id/perk_customization_perk4_layout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1">
@@ -78,6 +83,7 @@
             </GridLayout>
 
             <GridLayout
+                android:id="@+id/perk_customization_perk5_layout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1">
@@ -91,6 +97,7 @@
             </GridLayout>
 
             <GridLayout
+                android:id="@+id/perk_customization_perk6_layout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1">
@@ -104,6 +111,7 @@
             </GridLayout>
 
             <GridLayout
+                android:id="@+id/perk_customization_perk7_layout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1">
@@ -134,7 +142,8 @@
             <ListView
                 android:id="@+id/perk_customization_your_perks_list"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                android:choiceMode="singleChoice" />
         </LinearLayout>
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>
