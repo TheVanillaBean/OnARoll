@@ -8,7 +8,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ServerValue;
 import com.google.firebase.database.ValueEventListener;
+import com.onarollapp.onaroll.POJO.PendingGameRetrieveEvent;
 import com.onarollapp.onaroll.POJO.UserUpdateEvent;
+import com.onarollapp.onaroll.model.Game;
 import com.onarollapp.onaroll.model.User;
 import com.onarollapp.onaroll.util.Constants;
 
@@ -58,6 +60,48 @@ public class FBDataService {
     }
 
     //-----------------End Database References------------------//
+
+
+    public void retrievePendingGame(){
+
+        pendingGamesRef().limitToFirst(1).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                if (!dataSnapshot.exists()) {
+                    EventBus.getDefault().post(new PendingGameRetrieveEvent(null, "No Games"));
+                }
+
+                //only loops once because of query limit
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+
+                    gamesRef().child(postSnapshot.getKey()).addListenerForSingleValueEvent(new ValueEventListener() {
+
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+
+                            EventBus.getDefault().post(new PendingGameRetrieveEvent(dataSnapshot.getValue(Game.class), null));
+
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+                            EventBus.getDefault().post(new PendingGameRetrieveEvent(null, "Game Error"));
+
+                        }
+                    });
+
+                }
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                EventBus.getDefault().post(new PendingGameRetrieveEvent(null, "Data Error"));
+            }
+        });
+
+    }
 
 
     public void saveUser(final User user){

@@ -17,6 +17,7 @@ import com.amulyakhare.textdrawable.util.ColorGenerator;
 import com.google.firebase.auth.FirebaseAuth;
 import com.onarollapp.onaroll.DataService.AuthService;
 import com.onarollapp.onaroll.DataService.FBDataService;
+import com.onarollapp.onaroll.POJO.PendingGameRetrieveEvent;
 import com.onarollapp.onaroll.POJO.UserCastEvent;
 import com.onarollapp.onaroll.R;
 import com.onarollapp.onaroll.model.Game;
@@ -41,6 +42,8 @@ public class DashboardFragment extends Fragment implements MaterialDialog.OnDism
     private User mCurrentUser;
 
     private MaterialDialog progressDialog;
+
+    private String newGameKey;
 
     public DashboardFragment() {
     }
@@ -96,23 +99,71 @@ public class DashboardFragment extends Fragment implements MaterialDialog.OnDism
         }
     }
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onPendingGameCallBack(PendingGameRetrieveEvent event) {
+
+
+        if (event.getError() == null){
+
+            progressDialog.dismiss();
+
+            removePendingGame();
+
+
+            L.m("There is a game! with ID " + event.getGame().getUuid());
+
+        }else{
+
+            if(event.getError().equals("No Games")){
+
+                newGameKey = FBDataService.getInstance().gamesRef().push().getKey();
+                Game game = new Game(newGameKey, mCurrentUser.getUUID(), mCurrentUser.getUUID());
+                FBDataService.getInstance().gamesRef().child(newGameKey).setValue(game);
+                FBDataService.getInstance().pendingGamesRef().child(newGameKey).setValue(true);
+
+            }else{
+
+                progressDialog.dismiss();
+
+                L.m("Other type of error");
+
+            }
+
+        }
+    }
+
     @OnClick(R.id.new_game_btn)
     public void onNewGameBtnPressed() {
         progressDialog.show();
 
-        //Check if a single pending game exists,
-        //If so, take that game and that is the game mothafuckas
-
-        String key = FBDataService.getInstance().gamesRef().push().getKey();
-        Game game = new Game(key, mCurrentUser.getUUID(), mCurrentUser.getUUID());
-        FBDataService.getInstance().gamesRef().child(key).setValue(game);
-        FBDataService.getInstance().pendingGamesRef().child(key).setValue(true);
+        FBDataService.getInstance().retrievePendingGame();
 
     }
 
     @Override
     public void onDismiss(DialogInterface dialogInterface) {
+
         L.m("dismiss!");
+
+        removePendingGame();
+
+    }
+
+    public void removePendingGame(){
+        if(newGameKey != null) {
+            FBDataService.getInstance().gamesRef().child(newGameKey).removeValue();
+            FBDataService.getInstance().pendingGamesRef().child(newGameKey).removeValue();
+        }
+    }
+
+    public void navigateToGameActivity(){
+
+//        Intent intent  = new Intent(getActivity(), GameActivity.class);
+//        intent.putExtra(Constants.EXTRA_USER_ID, mUser.getUUID());
+//        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+//        startActivity(intent);
+
     }
 
     @Override
