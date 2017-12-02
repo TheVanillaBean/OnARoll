@@ -24,6 +24,7 @@ import com.onarollapp.onaroll.model.User;
 import com.onarollapp.onaroll.util.Constants;
 import com.onarollapp.onaroll.util.Dialog;
 import com.onarollapp.onaroll.util.L;
+import com.onarollapp.onaroll.util.Util;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -41,7 +42,7 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class GameActivity extends AppCompatActivity {
 
-    private static int MAX_SCORE = 100;
+    private static int MAX_SCORE = 15;
 
     @BindView(R.id.toolbar) Toolbar mToolbar;
     @BindView(R.id.current_player_turn_label) TextView mCurrentPlayerTurnLabel;
@@ -120,9 +121,27 @@ public class GameActivity extends AppCompatActivity {
                     mGame = game;
                     mRoundScore = 0;
 
+                    if(mGame.getCreatorScore() >= MAX_SCORE || mGame.getJoinerScore() >= MAX_SCORE){
+
+                        mGame.setState(Constants.STATE_DONE);
+                        EventBus.getDefault().unregister(this);
+                        FBDataService.getInstance().updateGame(mGame);
+                        Toast.makeText(GameActivity.this, getWinnerName() + " is the winner!", Toast.LENGTH_LONG).show();
+                        finish();
+
+                    }
+
                     if(mGame.getTurn().equals(mCurrentUser.getUUID())){
+
                         mRollBtn.setEnabled(true);
                         mHoldBtn.setEnabled(true);
+
+                        mRollBtn.setBackgroundColor(Util.getColor(GameActivity.this, android.R.color.holo_red_dark));
+                        mHoldBtn.setBackgroundColor(Util.getColor(GameActivity.this, android.R.color.holo_blue_dark));
+                        mCurrentPlayerTurnLabel.setTextColor(Util.getColor(GameActivity.this, R.color.colorGreyDark));
+                        mCurrentPlayerScoreTextView.setTextColor(Util.getColor(GameActivity.this, R.color.colorGreyDark));
+                        mOtherPlayerTurnLabel.setTextColor(Util.getColor(GameActivity.this, R.color.colorGreyLight));
+                        mOtherPlayerScoreTextView.setTextColor(Util.getColor(GameActivity.this, R.color.colorGreyLight));
                     }
                     if(mGame.getCreatorID().equals(mCurrentUser.getUUID())){
                         mCurrentPlayerScoreTextView.setText(String.valueOf(mGame.getCreatorScore()));
@@ -145,6 +164,15 @@ public class GameActivity extends AppCompatActivity {
 
     }
 
+    private String getWinnerName(){
+
+        if (mGame.getCreatorID().equals(mCurrentUser.getUUID())){
+            return mGame.getCreatorName();
+        }else{
+            return mGame.getJoinerName();
+        }
+    }
+
     private String getNextPlayerID(){
 
        if (mGame.getTurn().equals(mCurrentUser.getUUID())){
@@ -163,13 +191,24 @@ public class GameActivity extends AppCompatActivity {
 
 
         if(diceNumber != 1){
+
             mRoundScore = mRoundScore + diceNumber;
             L.m(mRoundScore + " round");
             mCurrentScoreTextView.setText(String.valueOf(mRoundScore));
+
         }else{
+
+            Toast.makeText(this, "You rolled a one. You lose all your points for this turn :(", Toast.LENGTH_SHORT).show();
 
             mRollBtn.setEnabled(false);
             mHoldBtn.setEnabled(false);
+
+            mRollBtn.setBackgroundColor(Util.getColor(GameActivity.this, android.R.color.holo_red_light));
+            mHoldBtn.setBackgroundColor(Util.getColor(GameActivity.this, android.R.color.holo_blue_light));
+            mCurrentPlayerTurnLabel.setTextColor(Util.getColor(GameActivity.this, R.color.colorGreyLight));
+            mCurrentPlayerScoreTextView.setTextColor(Util.getColor(GameActivity.this, R.color.colorGreyLight));
+            mOtherPlayerTurnLabel.setTextColor(Util.getColor(GameActivity.this, R.color.colorGreyDark));
+            mOtherPlayerScoreTextView.setTextColor(Util.getColor(GameActivity.this, R.color.colorGreyDark));
 
             mCurrentScoreTextView.setText("0");
             mGame.setTurn(getNextPlayerID());
@@ -183,25 +222,24 @@ public class GameActivity extends AppCompatActivity {
         mRollBtn.setEnabled(false);
         mHoldBtn.setEnabled(false);
 
-        if(mGame.getCreatorScore() >= MAX_SCORE || mGame.getJoinerScore() >= MAX_SCORE){
+        mRollBtn.setBackgroundColor(Util.getColor(GameActivity.this, android.R.color.holo_red_light));
+        mHoldBtn.setBackgroundColor(Util.getColor(GameActivity.this, android.R.color.holo_blue_light));
+        mCurrentPlayerTurnLabel.setTextColor(Util.getColor(GameActivity.this, R.color.colorGreyLight));
+        mCurrentPlayerScoreTextView.setTextColor(Util.getColor(GameActivity.this, R.color.colorGreyLight));
+        mOtherPlayerTurnLabel.setTextColor(Util.getColor(GameActivity.this, R.color.colorGreyDark));
+        mOtherPlayerScoreTextView.setTextColor(Util.getColor(GameActivity.this, R.color.colorGreyDark));
 
-            mGame.setState(Constants.STATE_DONE);
-            Toast.makeText(this, "Winner!", Toast.LENGTH_LONG).show();
-            finish();
-
+        if(mGame.getCreatorID().equals(mCurrentUser.getUUID())){
+            mGame.setCreatorScore(mGame.getCreatorScore() + mRoundScore);
         }else{
-
-            if(mGame.getCreatorID().equals(mCurrentUser.getUUID())){
-                mGame.setCreatorScore(mGame.getCreatorScore() + mRoundScore);
-            }else{
-                mGame.setJoinerScore(mGame.getJoinerScore() + mRoundScore);
-            }
-
-            mCurrentScoreTextView.setText("0");
-
-            mGame.setTurn(getNextPlayerID());
-            FBDataService.getInstance().updateGame(mGame);
+            mGame.setJoinerScore(mGame.getJoinerScore() + mRoundScore);
         }
+
+        mCurrentScoreTextView.setText("0");
+
+        mGame.setTurn(getNextPlayerID());
+        FBDataService.getInstance().updateGame(mGame);
+
 
     }
 
