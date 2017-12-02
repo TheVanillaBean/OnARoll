@@ -47,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+
         initBackgroundImage();
         if (Util.isGooglePlayServicesAvailable(MainActivity.this)){
             validateUserToken();
@@ -100,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
     public void onUserCastCallBack(UserCastEvent event) {
         if (event.getError() == null){
 
-            if(event.getUser().getActiveGameID().equals(Constants.NO_ACTIVE_GAME)){
+            if(event.getUser().getActiveGameID().equals(Constants.NO_ACTIVE_GAME) || event.getUser().getActiveGameID().equals("")){
                 this.navigateToPlayerActivity();
             }else{
                 mCurrentUser = event.getUser();

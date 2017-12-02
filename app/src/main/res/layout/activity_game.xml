@@ -45,7 +45,7 @@
                 android:layout_margin="8dp"
                 android:textSize="32sp"
                 android:textColor="@android:color/holo_red_dark"
-                android:text="88"
+                android:text="0"
                 android:layout_gravity="center"/>
 
             <TextView
@@ -61,14 +61,14 @@
                 android:layout_gravity="center"/>
 
             <TextView
-                android:id="@+id/other_global_score_textview"
+                android:id="@+id/other_player_score_textview"
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
                 android:layout_weight="1"
                 android:layout_margin="8dp"
                 android:textSize="24sp"
                 android:textColor="@android:color/holo_red_dark"
-                android:text="11"
+                android:text="0"
                 android:layout_gravity="center"/>
 
         </LinearLayout>
@@ -103,7 +103,7 @@
                 android:layout_margin="8dp"
                 android:textSize="32sp"
                 android:textColor="@android:color/white"
-                android:text="11"
+                android:text="0"
                 android:layout_gravity="center"
                 android:textAllCaps="true"/>
 
