@@ -1,6 +1,8 @@
 package com.onarollapp.onaroll.controller;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -19,7 +21,12 @@ import com.amulyakhare.textdrawable.TextDrawable;
 import com.amulyakhare.textdrawable.util.ColorGenerator;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.MutableData;
+import com.google.firebase.database.Transaction;
+import com.google.firebase.database.ValueEventListener;
 import com.onarollapp.onaroll.DataService.FBDataService;
 import com.onarollapp.onaroll.R;
 import com.onarollapp.onaroll.model.Game;
@@ -97,12 +104,22 @@ public class GameLobbyActivity extends AppCompatActivity {
             }
 
             @Override
-            protected void onBindViewHolder(GameHolder holder, int position, Game model) {
+            protected void onBindViewHolder(GameHolder holder, int position, final Game model) {
                 holder.setName(model.getCreatorName());
                 holder.updateProfileLetter(model.getCreatorName());
                 holder.getView().setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+
+                        if(!model.getCreatorID().equals(mCurrentUser.getUUID())){
+
+                            joinGame(model.getUuid());
+
+                        }else{
+                            Toast.makeText(getApplicationContext(), "You can't join a game with yourself silly goose:)", Toast.LENGTH_LONG).show();
+
+                        }
+
                         L.m("OnCLick");
                     }
                 });
@@ -111,6 +128,90 @@ public class GameLobbyActivity extends AppCompatActivity {
 
         mRecyclerView.setAdapter(mAdapter);
         mAdapter.startListening();
+    }
+
+    private void joinGame(String key){
+        FBDataService.getInstance().gamesRef().child(key).runTransaction(new Transaction.Handler() {
+            @Override
+            public Transaction.Result doTransaction(MutableData mutableData) {
+
+                Game game = mutableData.getValue(Game.class);
+
+                if(game == null){
+                    return Transaction.success(mutableData);
+                }
+
+                L.m("joinerID" + game.getJoinerID());
+
+                if(game.getJoinerID().equals("")){
+                    L.m("made it in");
+                    game.setState(Constants.STATE_JOIN);
+                    game.setJoinerID(mCurrentUser.getUUID());
+                    game.setJoinerName(mCurrentUser.getName());
+                }
+
+                mutableData.setValue(game);
+
+                L.m("mut" + mutableData.getKey());
+
+                return Transaction.success(mutableData);
+            }
+
+            @Override
+            public void onComplete(DatabaseError databaseError, boolean commited, DataSnapshot dataSnapshot) {
+
+                if(commited){
+
+                    Game game = dataSnapshot.getValue(Game.class);
+
+                    if(game != null){
+                        if(game.getJoinerID().equals(mCurrentUser.getUUID())){
+                            mCreateGameBtn.setEnabled(false);
+                            watchGame(game.getUuid());
+                            L.m("Success started game!");
+                        }else{
+                            L.m("Game already joined");
+                        }
+                    }else{
+                        L.m("Invalid Game");
+                    }
+
+
+                }else{
+                    L.m("Could not commit!");
+                }
+
+            }
+        });
+    }
+
+    private void watchGame(String key){
+
+        FBDataService.getInstance().gamesRef().child(key).addValueEventListener(new ValueEventListener() {
+
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                Game game = dataSnapshot.getValue(Game.class);
+
+                if(game == null){
+                    mCreateGameBtn.setEnabled(true);
+                    Toast.makeText(getApplicationContext(), "Game Ended. Please Play Again...", Toast.LENGTH_LONG).show();
+                }else{
+
+                    if(game.getState().equals(Constants.STATE_JOIN)){
+                        navigateToGameLobbyActivity(game);
+                    }
+                }
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+
+        });
     }
 
     @OnClick(R.id.create_game_btn)
@@ -124,6 +225,7 @@ public class GameLobbyActivity extends AppCompatActivity {
             FBDataService.getInstance().gamesRef().child(key).setValue(mGame);
             mCreateGameBtn.setText("Disconnect New Game");
             Toast.makeText(getApplicationContext(), "Waiting for connection.. Unable to join other games", Toast.LENGTH_LONG).show();
+            watchGame(mGame.getUuid());
         }else{
             mGame.setState(Constants.STATE_DISCONNECT);
             FBDataService.getInstance().gamesRef().child(mGame.getUuid()).setValue(mGame);
@@ -133,7 +235,22 @@ public class GameLobbyActivity extends AppCompatActivity {
 
     }
 
+    public void navigateToGameLobbyActivity(Game game){
 
+        Bundle bundle = new Bundle();
+        Parcelable wrappedUser = Parcels.wrap(mCurrentUser);
+        Parcelable wrappedGame = Parcels.wrap(game);
+        bundle.putParcelable(Constants.EXTRA_USER_PARCEL, wrappedUser);
+        bundle.putParcelable(Constants.EXTRA_GAME_PARCEL, wrappedGame);
+
+
+        Intent intent = new Intent(this, GameActivity.class);
+        intent.putExtras(bundle);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+
+    }
     @Override
     public void onDestroy() {
         super.onDestroy();

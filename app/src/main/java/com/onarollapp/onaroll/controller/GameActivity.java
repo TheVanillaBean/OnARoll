@@ -39,7 +39,6 @@ public class GameActivity extends AppCompatActivity {
         setContentView(R.layout.activity_game);
 
         ButterKnife.bind(this);
-        EventBus.getDefault().register(this);
 
         setSupportActionBar(mToolbar);
         if (getSupportActionBar() != null) {
@@ -47,7 +46,12 @@ public class GameActivity extends AppCompatActivity {
             getSupportActionBar().setTitle("New Game");
         }
 
+        if (Parcels.unwrap(getIntent().getExtras().getParcelable(Constants.EXTRA_GAME_PARCEL)) != null) {
 
+            mGame = Parcels.unwrap(getIntent().getExtras().getParcelable(Constants.EXTRA_GAME_PARCEL));
+            mCurrentUser = Parcels.unwrap(getIntent().getExtras().getParcelable(Constants.EXTRA_USER_PARCEL));
+
+        }
     }
 
     @Override
@@ -63,7 +67,6 @@ public class GameActivity extends AppCompatActivity {
 
     @Override
     protected void onPause() {
-        EventBus.getDefault().unregister(this);
         super.onPause();
     }
 

@@ -8,6 +8,7 @@ public class Constants {
     //putExtra
     public static final String EXTRA_USER_ID = "userIDExtra";
     public static final String EXTRA_USER_PARCEL = "userParcel";
+    public static final String EXTRA_GAME_PARCEL = "gameParcel";
 
     //Model - User
     public static final String UUID = "uuid";
