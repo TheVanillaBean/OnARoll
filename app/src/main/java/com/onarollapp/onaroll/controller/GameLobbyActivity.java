@@ -100,6 +100,12 @@ public class GameLobbyActivity extends AppCompatActivity {
             protected void onBindViewHolder(GameHolder holder, int position, Game model) {
                 holder.setName(model.getCreatorName());
                 holder.updateProfileLetter(model.getCreatorName());
+                holder.getView().setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        L.m("OnCLick");
+                    }
+                });
             }
         };
 
