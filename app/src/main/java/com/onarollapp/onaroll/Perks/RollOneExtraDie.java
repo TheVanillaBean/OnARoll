@@ -12,6 +12,7 @@ public class RollOneExtraDie extends Perk{
         this.id = "7";
         this.dieModifier = 1; // This perk gives the User an increased chance to roll a 1
         this.title = "Extra Die";
+        this.description = "Roll 1 extra die each roll.";
     }
 
     public GameState onRoll(GameState gameState) {

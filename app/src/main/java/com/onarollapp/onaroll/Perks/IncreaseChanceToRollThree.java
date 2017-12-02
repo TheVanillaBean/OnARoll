@@ -12,6 +12,7 @@ public class IncreaseChanceToRollThree extends Perk{
         this.id = "3";
         this.threeModifer = 0.01; // This perk gives the User an increased chance to roll a 1
         this.title = "Three Die Increase";
+        this.description = "Increases your chance to roll a 3 on each die.";
     }
 
     public GameState onRoll(GameState gameState) {

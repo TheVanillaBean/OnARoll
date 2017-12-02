@@ -12,6 +12,7 @@ public class EmptyPerk extends Perk {
         this.title = "Empty Perk";
         this.description = "";
         this.id = "2";
+        this.description = "";
     }
 
     @Override

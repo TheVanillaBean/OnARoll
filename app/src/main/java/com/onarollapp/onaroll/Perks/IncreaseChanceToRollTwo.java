@@ -12,6 +12,7 @@ public class IncreaseChanceToRollTwo extends Perk{
         this.id = "2";
         this.twoModifer = 0.01; // This perk gives the User an increased chance to roll a 1
         this.title = "Two Die Increase";
+        this.description = "Increases your chance to roll a 2 on each die.";
     }
 
     public GameState onRoll(GameState gameState) {
