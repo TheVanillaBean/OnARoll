@@ -55,6 +55,7 @@ public class GameLobbyActivity extends AppCompatActivity {
 
     private MaterialDialog progressDialog;
     private User mCurrentUser;
+    ValueEventListener mValueEventListener;
 
     private Game mGame = null;
 
@@ -187,11 +188,9 @@ public class GameLobbyActivity extends AppCompatActivity {
 
     private void watchGame(String key){
 
-        FBDataService.getInstance().gamesRef().child(key).addValueEventListener(new ValueEventListener() {
-
+        mValueEventListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-
                 Game game = dataSnapshot.getValue(Game.class);
 
                 if(game == null){
@@ -205,15 +204,15 @@ public class GameLobbyActivity extends AppCompatActivity {
                         navigateToGameLobbyActivity(game);
                     }
                 }
-
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
 
             }
+        };
 
-        });
+        FBDataService.getInstance().gamesRef().child(key).addValueEventListener(mValueEventListener);
     }
 
     @OnClick(R.id.create_game_btn)
@@ -222,7 +221,6 @@ public class GameLobbyActivity extends AppCompatActivity {
         if(mGame == null){
             DatabaseReference ref = FBDataService.getInstance().gamesRef().push();
             String key = ref.getKey();
-            ref.onDisconnect().removeValue();
             mGame = new Game(key, mCurrentUser.getUUID(), mCurrentUser.getName(), mCurrentUser.getUUID(), Constants.STATE_OPEN);
             FBDataService.getInstance().gamesRef().child(key).setValue(mGame);
             mCreateGameBtn.setText("Disconnect New Game");
@@ -250,6 +248,8 @@ public class GameLobbyActivity extends AppCompatActivity {
         intent.putExtras(bundle);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        FBDataService.getInstance().gamesRef().child(game.getUuid()).removeEventListener(mValueEventListener);
+
         startActivity(intent);
 
     }
