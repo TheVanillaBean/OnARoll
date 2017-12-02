@@ -20,7 +20,7 @@ OnARoll uses a number of open source projects to work properly:
 * [ButterKnife] - Field and method binding for Android views 
 * [EventBus] - EventBus is a publish/subscribe event bus for Android and Java.
 * [Glide] - An image loading and caching library for Android
-OnARoll itself is open source as well, with a [public repository][roll] on GitHub.
+* OnARoll itself is open source as well, with a [public repository][roll] on GitHub.
 
 ### Installation
 
