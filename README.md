@@ -1,6 +1,6 @@
 # OnARoll
 
-OnAroll is a Firebase powered dice game built for Android
+OnARoll is a Firebase powered dice game built for Android
 
 # Game Overview
 
