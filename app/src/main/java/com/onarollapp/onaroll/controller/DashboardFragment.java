@@ -3,18 +3,15 @@ package com.onarollapp.onaroll.controller;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
-import com.amulyakhare.textdrawable.TextDrawable;
-import com.amulyakhare.textdrawable.util.ColorGenerator;
-import com.google.firebase.auth.FirebaseAuth;
 import com.onarollapp.onaroll.DataService.AuthService;
 import com.onarollapp.onaroll.DataService.FBDataService;
 import com.onarollapp.onaroll.POJO.PendingGameRetrieveEvent;
@@ -29,6 +26,7 @@ import com.onarollapp.onaroll.util.L;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+import org.parceler.Parcels;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -103,23 +101,31 @@ public class DashboardFragment extends Fragment implements MaterialDialog.OnDism
     public void onPendingGameCallBack(PendingGameRetrieveEvent event) {
 
 
+        //Just gameID
+
         if (event.getError() == null){
 
             progressDialog.dismiss();
 
-            removePendingGame();
+            Game game = event.getGame();
 
+            game.setJoinerID(mCurrentUser.getUUID());
 
-            L.m("There is a game! with ID " + event.getGame().getUuid());
+            FBDataService.getInstance().gamesRef().child(game.getUuid()).setValue(game);
+
+            FBDataService.getInstance().gamesRef().child(newGameKey).removeValue();
+
+            L.m("There is a game with ID " + event.getGame().getUuid());
 
         }else{
 
             if(event.getError().equals("No Games")){
 
-                newGameKey = FBDataService.getInstance().gamesRef().push().getKey();
-                Game game = new Game(newGameKey, mCurrentUser.getUUID(), mCurrentUser.getUUID());
-                FBDataService.getInstance().gamesRef().child(newGameKey).setValue(game);
-                FBDataService.getInstance().pendingGamesRef().child(newGameKey).setValue(true);
+//                newGameKey = FBDataService.getInstance().gamesRef().push().getKey();
+//                Game game = new Game(newGameKey, mCurrentUser.getUUID(), mCurrentUser.getUUID(), Constants.STATE_OPEN);
+//                FBDataService.getInstance().gamesRef().child(newGameKey).setValue(game);
+
+                //ListenForChnages
 
             }else{
 
@@ -132,11 +138,16 @@ public class DashboardFragment extends Fragment implements MaterialDialog.OnDism
         }
     }
 
+    //OnSubscribe-UserCurrentGameChanges
+    //Upon change - get game object and navigate
+
     @OnClick(R.id.new_game_btn)
     public void onNewGameBtnPressed() {
-        progressDialog.show();
+//        progressDialog.show();
 
-        FBDataService.getInstance().retrievePendingGame();
+//        FBDataService.getInstance().retrievePendingGame();
+
+        navigateToGameLobbyActivity();
 
     }
 
@@ -152,17 +163,20 @@ public class DashboardFragment extends Fragment implements MaterialDialog.OnDism
     public void removePendingGame(){
         if(newGameKey != null) {
             FBDataService.getInstance().gamesRef().child(newGameKey).removeValue();
-            FBDataService.getInstance().pendingGamesRef().child(newGameKey).removeValue();
+//            FBDataService.getInstance().pendingGamesRef().child(newGameKey).removeValue();
         }
+
     }
+    public void navigateToGameLobbyActivity(){
 
-    public void navigateToGameActivity(){
+        Bundle bundle = new Bundle();
+        Parcelable wrappedUser = Parcels.wrap(mCurrentUser);
+        bundle.putParcelable(Constants.EXTRA_USER_PARCEL, wrappedUser);
 
-//        Intent intent  = new Intent(getActivity(), GameActivity.class);
-//        intent.putExtra(Constants.EXTRA_USER_ID, mUser.getUUID());
-//        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-//        startActivity(intent);
+
+        Intent intent = new Intent(getActivity(), GameLobbyActivity.class);
+        intent.putExtras(bundle);
+        getActivity().startActivity(intent);
 
     }
 

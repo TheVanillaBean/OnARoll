@@ -13,49 +13,37 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="false"
         android:theme="@style/AppTheme">
-
         <activity
             android:name=".controller.MainActivity"
             android:screenOrientation="portrait">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
-
         <activity
             android:name=".controller.ShopActivity"
             android:label="@string/title_activity_shop" />
-
         <activity
             android:name=".controller.PerkCustomization"
             android:label="@string/title_activity_perk_customization" />
-
         <activity
             android:name=".controller.GameActivity"
-            android:screenOrientation="portrait">
-
-        </activity>
-
+            android:screenOrientation="portrait"></activity>
         <activity
             android:name=".controller.ForgotPasswordActivity"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".controller.LoginActivity"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".controller.PlayerMainActivity"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".controller.SignUpActivity"
             android:screenOrientation="portrait" />
-
+        <activity android:name=".controller.GameLobbyActivity"></activity>
     </application>
 
 </manifest>

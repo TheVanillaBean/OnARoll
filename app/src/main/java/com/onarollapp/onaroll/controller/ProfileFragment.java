@@ -77,9 +77,10 @@ public class ProfileFragment extends Fragment {
         if (event.getError() == null){
             mCurrentUser = event.getUser();
             mEmailLabel.setText(mCurrentUser.getEmail());
+            mNameLabel.setText(mCurrentUser.getName());
             randomColor = generator.getRandomColor();
             mTextDrawable = TextDrawable.builder()
-                    .buildRound(mCurrentUser.getEmail().substring(0,2), randomColor);
+                    .buildRound(mCurrentUser.getName().substring(0,2), randomColor);
             mProfileImage.setImageDrawable(mTextDrawable);
         }else{
             Dialog.showDialog(getActivity(), "Authentication Error", event.getError(), "Okay");

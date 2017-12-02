@@ -13,6 +13,7 @@ import com.onarollapp.onaroll.POJO.UserUpdateEvent;
 import com.onarollapp.onaroll.model.Game;
 import com.onarollapp.onaroll.model.User;
 import com.onarollapp.onaroll.util.Constants;
+import com.onarollapp.onaroll.util.L;
 
 
 import org.greenrobot.eventbus.EventBus;
@@ -51,57 +52,9 @@ public class FBDataService {
         return mDatabase.getReference(Constants.FIR_CHILD_GAMES);
     }
 
-    public DatabaseReference activeGamesRef() {
-        return mDatabase.getReference(Constants.FIR_CHILD_ACTIVE_GAMES);
-    }
-
-    public DatabaseReference pendingGamesRef() {
-        return mDatabase.getReference(Constants.FIR_CHILD_PENDING_GAMES);
-    }
 
     //-----------------End Database References------------------//
 
-
-    public void retrievePendingGame(){
-
-        pendingGamesRef().limitToFirst(1).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-
-                if (!dataSnapshot.exists()) {
-                    EventBus.getDefault().post(new PendingGameRetrieveEvent(null, "No Games"));
-                }
-
-                //only loops once because of query limit
-                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-
-                    gamesRef().child(postSnapshot.getKey()).addListenerForSingleValueEvent(new ValueEventListener() {
-
-                        @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
-
-                            EventBus.getDefault().post(new PendingGameRetrieveEvent(dataSnapshot.getValue(Game.class), null));
-
-                        }
-
-                        @Override
-                        public void onCancelled(DatabaseError databaseError) {
-                            EventBus.getDefault().post(new PendingGameRetrieveEvent(null, "Game Error"));
-
-                        }
-                    });
-
-                }
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                EventBus.getDefault().post(new PendingGameRetrieveEvent(null, "Data Error"));
-            }
-        });
-
-    }
 
 
     public void saveUser(final User user){

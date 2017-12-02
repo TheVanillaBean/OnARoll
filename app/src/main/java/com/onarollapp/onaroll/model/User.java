@@ -26,6 +26,7 @@ public class User {
     String uuid;
     String email;
     String password;
+    String name;
 
     public String getUUID() {
         return (uuid == null) ? "" : uuid;
@@ -51,12 +52,21 @@ public class User {
         this.password = password;
     }
 
+    public String getName() {
+        return (name == null) ? "" : name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public User() {
     }
 
-    public User(String email, String password) {
+    public User(String email, String password, String name) {
         this.email = email;
         this.password = password;
+        this.name = name;
     }
 
     @Exclude
@@ -66,6 +76,7 @@ public class User {
         result.put(Constants.UUID, uuid);
         result.put(Constants.EMAIL, email);
         result.put(Constants.PASSWORD, password);
+        result.put(Constants.NAME, name);
         return result;
     }
 

@@ -39,6 +39,7 @@ public class SignUpActivity extends AppCompatActivity {
     @BindView(R.id.toolbar) Toolbar mToolbar;
     @BindView(R.id.email_input) EditText mEmailInput;
     @BindView(R.id.password_input) EditText mPasswordInput;
+    @BindView(R.id.name_input) EditText mNameInput;
     @BindView(R.id.sign_up_btn) Button mSignUpBtn;
 
     private User mUser;
@@ -69,11 +70,12 @@ public class SignUpActivity extends AppCompatActivity {
 
         String email = mEmailInput.getText().toString();
         String password = mPasswordInput.getText().toString();
+        String name = mNameInput.getText().toString();
 
         if(!isAnyFormFieldEmpty()){
             Dialog.showDialog(SignUpActivity.this, "Sign Up Error", "One or More Fields are Blank", "Okay");
         }else{
-            mUser = new User(email, password);
+            mUser = new User(email, password, name);
             signUpUser();
         }
 
@@ -120,7 +122,7 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
     private boolean isAnyFormFieldEmpty() {
-        return !(mEmailInput.getText().toString().isEmpty() || mPasswordInput.getText().toString().isEmpty());
+        return !(mEmailInput.getText().toString().isEmpty() || mPasswordInput.getText().toString().isEmpty() | mNameInput.getText().toString().isEmpty());
     }
 
     @Override
