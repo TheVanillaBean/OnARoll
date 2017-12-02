@@ -15,6 +15,7 @@ public class Constants {
     public static final String EMAIL = "email";
     public static final String PASSWORD = "password";
     public static final String NAME = "name";
+    public static final String ACTIVE_GAME_ID = "activeGameID";
 
 
     //Model - Game
@@ -36,6 +37,8 @@ public class Constants {
     public static final String STATE_JOIN = "JOIN";
     public static final String STATE_DONE = "DONE";
     public static final String STATE_DISCONNECT = "DISCONNECT";
+
+    public static final String NO_ACTIVE_GAME = "NoActiveGame";
 
 
 }

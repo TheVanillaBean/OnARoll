@@ -33,7 +33,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 
-public class DashboardFragment extends Fragment implements MaterialDialog.OnDismissListener{
+public class DashboardFragment extends Fragment{
 
     @BindView(R.id.new_game_btn) Button mNewGameBtn;
 
@@ -68,16 +68,6 @@ public class DashboardFragment extends Fragment implements MaterialDialog.OnDism
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        MaterialDialog.Builder builder = new MaterialDialog.Builder(getActivity())
-                .title("New Game")
-                .content("Waiting for match...")
-                .progress(true, 0)
-                .dismissListener(this)
-                .autoDismiss(false)
-                .progressIndeterminateStyle(true);
-
-        progressDialog = builder.build();
-
         mNewGameBtn.setEnabled(false);
         if(AuthService.getInstance().getCurrentUser() != null){
             User.castUser(AuthService.getInstance().getCurrentUser().getUid());
@@ -97,82 +87,17 @@ public class DashboardFragment extends Fragment implements MaterialDialog.OnDism
         }
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onPendingGameCallBack(PendingGameRetrieveEvent event) {
-
-
-        //Just gameID
-
-        if (event.getError() == null){
-
-            progressDialog.dismiss();
-
-            Game game = event.getGame();
-
-            game.setJoinerID(mCurrentUser.getUUID());
-
-            FBDataService.getInstance().gamesRef().child(game.getUuid()).setValue(game);
-
-            FBDataService.getInstance().gamesRef().child(newGameKey).removeValue();
-
-            L.m("There is a game with ID " + event.getGame().getUuid());
-
-        }else{
-
-            if(event.getError().equals("No Games")){
-
-//                newGameKey = FBDataService.getInstance().gamesRef().push().getKey();
-//                Game game = new Game(newGameKey, mCurrentUser.getUUID(), mCurrentUser.getUUID(), Constants.STATE_OPEN);
-//                FBDataService.getInstance().gamesRef().child(newGameKey).setValue(game);
-
-                //ListenForChnages
-
-            }else{
-
-                progressDialog.dismiss();
-
-                L.m("Other type of error");
-
-            }
-
-        }
-    }
-
-    //OnSubscribe-UserCurrentGameChanges
-    //Upon change - get game object and navigate
 
     @OnClick(R.id.new_game_btn)
     public void onNewGameBtnPressed() {
-//        progressDialog.show();
-
-//        FBDataService.getInstance().retrievePendingGame();
-
         navigateToGameLobbyActivity();
-
     }
 
-    @Override
-    public void onDismiss(DialogInterface dialogInterface) {
-
-        L.m("dismiss!");
-
-        removePendingGame();
-
-    }
-
-    public void removePendingGame(){
-        if(newGameKey != null) {
-            FBDataService.getInstance().gamesRef().child(newGameKey).removeValue();
-//            FBDataService.getInstance().pendingGamesRef().child(newGameKey).removeValue();
-        }
-
-    }
     public void navigateToGameLobbyActivity(){
 
         Bundle bundle = new Bundle();
         Parcelable wrappedUser = Parcels.wrap(mCurrentUser);
         bundle.putParcelable(Constants.EXTRA_USER_PARCEL, wrappedUser);
-
 
         Intent intent = new Intent(getActivity(), GameLobbyActivity.class);
         intent.putExtras(bundle);

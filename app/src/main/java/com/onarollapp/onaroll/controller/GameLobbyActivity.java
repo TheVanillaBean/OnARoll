@@ -200,6 +200,8 @@ public class GameLobbyActivity extends AppCompatActivity {
                 }else{
 
                     if(game.getState().equals(Constants.STATE_JOIN)){
+                        FBDataService.getInstance().usersRef().child(game.getCreatorID()).child(Constants.ACTIVE_GAME_ID).setValue(game.getUuid());
+                        FBDataService.getInstance().usersRef().child(game.getJoinerID()).child(Constants.ACTIVE_GAME_ID).setValue(game.getUuid());
                         navigateToGameLobbyActivity(game);
                     }
                 }
@@ -251,6 +253,7 @@ public class GameLobbyActivity extends AppCompatActivity {
         startActivity(intent);
 
     }
+
     @Override
     public void onDestroy() {
         super.onDestroy();

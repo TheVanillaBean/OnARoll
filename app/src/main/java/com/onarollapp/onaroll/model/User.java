@@ -27,6 +27,7 @@ public class User {
     String email;
     String password;
     String name;
+    String activeGameID;
 
     public String getUUID() {
         return (uuid == null) ? "" : uuid;
@@ -60,6 +61,14 @@ public class User {
         this.name = name;
     }
 
+    public String getActiveGameID() {
+        return (activeGameID == null) ? "" : activeGameID;
+    }
+
+    public void setActiveGameID(String activeGameID) {
+        this.activeGameID = activeGameID;
+    }
+
     public User() {
     }
 
@@ -77,6 +86,7 @@ public class User {
         result.put(Constants.EMAIL, email);
         result.put(Constants.PASSWORD, password);
         result.put(Constants.NAME, name);
+        result.put(Constants.ACTIVE_GAME_ID, activeGameID);
         return result;
     }
 
